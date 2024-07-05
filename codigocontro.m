@@ -1,13 +1,13 @@
 %% PARAMETROS DO MOTOR
 
-Km = 0.228
+Km = 0.3924
 Bm = 817e-6
-Jm = 200e-6
+Jm = 5.4e-6
 
-G = 107.83
+G = 1
 
-Tmax = 0.9
-wmax = 165
+Tmax = 0.3924
+wmax = 62.83
 
 L = 0.8
 M = 6
@@ -26,24 +26,26 @@ g = 9.81
 tau_g = g*(L*L)*M/(6*G)
  
 %% PARAMETROS CONTROLADOR DE VELOCIDADE
-[C, info] = pidtune(ft_motor, 'PI')
+[C, info] = pidtune(ft_motor, 'PID')
 
 Ts = 0.001
 Kp = C.Kp
 Ki = C.Ki
+Kd = C.Kd
 
 %%CONTROLE FEED-FORWARD
 
 Kff = 1
 
-%%parametro controlador de pos
+%%parametro controlador de posicao
 
 vel_loop = C*ft_motor
 
-[C2, info] = pidtune(vel_loop, 'PI')
+[C2, info] = pidtune(vel_loop, 'PID')
 
 Kpp = C2.Kp
 Kii = C2.Ki
+Kdd = C2.Kd
 
 %% GERADOR DE TRAJETORIAS
 

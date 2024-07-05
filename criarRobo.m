@@ -16,8 +16,8 @@ function [meuRobo, configuracoes] = criarRobo()
     % Link 1 - Junta Revoluta
     link1 = rigidBody('link1');
     junta1 = rigidBodyJoint('j1', 'revolute');
-    setFixedTransform(junta1, [0 0 0 0], 'dh'); % DH: [a alpha d theta]
-    junta1.PositionLimits = deg2rad([15 90]); % Limites de posição em graus
+    setFixedTransform(junta1, [0.1 0 0 0], 'dh'); % DH: [a alpha d theta]
+    junta1.PositionLimits = deg2rad([-75 0]); % Limites de posição em graus
     link1.Joint = junta1;
 
     % Definindo a inércia do Link 1
@@ -28,8 +28,8 @@ function [meuRobo, configuracoes] = criarRobo()
     % Link 2 - Junta Revoluta
     link2 = rigidBody('link2');
     junta2 = rigidBodyJoint('j2', 'revolute');
-    setFixedTransform(junta2, [0 0 0.5 0], 'dh'); % DH: [a alpha d theta]
-    junta2.PositionLimits = deg2rad([90 165]); % Limites de posição em graus
+    setFixedTransform(junta2, [0.1 0 0 0], 'dh'); % DH: [a alpha d theta]
+    junta2.PositionLimits = deg2rad([0 150]); % Limites de posição em graus
     link2.Joint = junta2;
 
     % Definindo a inércia do Link 2
@@ -40,8 +40,8 @@ function [meuRobo, configuracoes] = criarRobo()
     % Link 3 - Junta Revoluta
     link3 = rigidBody('link3');
     junta3 = rigidBodyJoint('j3', 'revolute');
-    setFixedTransform(junta3, [0.5 0 0 0], 'dh'); % DH: [a alpha d theta]
-    junta3.PositionLimits = deg2rad([-90 90]); % Limites de posição em graus
+    setFixedTransform(junta3, [0.02 0 0 0], 'dh'); % DH: [a alpha d theta]
+    junta3.PositionLimits = deg2rad([0 90]); % Limites de posição em graus
     link3.Joint = junta3;
 
     % Definindo a inércia do Link 3
@@ -57,16 +57,16 @@ function [meuRobo, configuracoes] = criarRobo()
 
     % Configurações do robô
     configuracoes.inicial = [0, 0, 0]; % Todas as juntas na posição inicial
-    configuracoes.extendido = [0.5, pi/2, pi/2]; % Configuração estendida
-    configuracoes.contraido = [0, -pi/2, -pi/2]; % Configuração contraída
+    configuracoes.extendido = [0, 0, 0]; % Configuração estendida
+    configuracoes.contraido = deg2rad([-75, 150, 30]); % Configuração contraída
 
     % Adicionando Malhas STL para Renderização (se disponível)
-    % link1.addVisual('Mesh', 'caminho/para/link1.stl');
-    % link2.addVisual('Mesh', 'caminho/para/link2.stl');
-    % link3.addVisual('Mesh', 'caminho/para/link3.stl');
+     link1.addVisual('Mesh', 'caminho/para/link1.stl');
+     link2.addVisual('Mesh', 'caminho/para/link2.stl');
+     link3.addVisual('Mesh', 'caminho/para/link3.stl');
 
     % Exemplo de uso:
-    % [meuRobo, configuracoes] = criarRobo();
-    % showdetails(meuRobo);
-    % show(meuRobo, configuracoes.extendido);
+     %[meuRobo, configuracoes] = criarRobo();
+     %showdetails(meuRobo);
+     %show(meuRobo, configuracoes.extendido);
 end
